@@ -39,6 +39,17 @@ function ready() {
     var button = addCart[i];
     button.addEventListener("click", addCartCliked);
   }
+  // buy button work
+  document.getElementsByClassName("btn-buy")[0].addEventListener("click", buyButtonClicked);
+}
+// buy button
+function buyButtonClicked() {
+  alert("your order is placed");
+  var cartContent = document.getElementsByClassName("cart-content")[0];
+  while (cartContent.hasChildNodes()) {
+    cartContent.removeChild(cartContent.firstChild);
+  }
+  updatetotal();
 }
 
 // remove item from card
@@ -78,25 +89,26 @@ function addProductToCart(title, price, productImg) {
     }
   }
 
-// var cartShopBox = document.createElement("div");
-// cartShopBox.classList.add("cart-box");
-// var cartItems = document.getElementsByClassName("cart-content")[0];
-// var cartItemsNames = cartItems.getElementsByClassName("cart-product-title");
+  // var cartShopBox = document.createElement("div");
+  // cartShopBox.classList.add("cart-box");
+  // var cartItems = document.getElementsByClassName("cart-content")[0];
+  // var cartItemsNames = cartItems.getElementsByClassName("cart-product-title");
 
-var cartBoxContent = `
-          <img src="pnj/2.jpg" alt="" class="cart-img">
+  var cartBoxContent = `
+          <img src="${productImg}" alt="" class="cart-img">
           <div class="detail-box">
-            <div class="cart-product-title">Mochi Strawberry</div>
-            <div class="cart-price">Rp 800000</div>
+            <div class="cart-product-title">${title}</div>
+            <div class="cart-price">${price}</div>
             <input type="number" value="1" class="cart-quantity">
           </div>
           <!-- remove cart -->
           <i class="bx bxs-trash-alt cart-remove"></i>`;
 
-cartShopBox.innerHTML = cartBoxContent;
-cartItems.append(cartShopBox);
-cartShopBox.getElementsByClassName("cart-remove")[0].addEventListener("click", removeCartItem);
-cartShopBox.getElementsByClassName("cart-quantity")[0].addEventListener("change", quantityChange);
+  cartShopBox.innerHTML = cartBoxContent;
+  cartItems.append(cartShopBox);
+  cartShopBox.getElementsByClassName("cart-remove")[0].addEventListener("click", removeCartItem);
+  cartShopBox.getElementsByClassName("cart-quantity")[0].addEventListener("change", quantityChange);
+}
 // update total
 function updatetotal() {
   var cartContent = document.getElementsByClassName("cart-content")[0];
@@ -109,10 +121,9 @@ function updatetotal() {
     var price = parseFloat(priceElement.innerText.replace("Rp", ""));
     var quantity = quantityElement.value;
     total = total + price * quantity;
-
-    //  kalo harga ada komanya
-    total = Math.round(total * 100) / 100;
-
-    document.getElementsByClassName("total-price")[0].innerText = "Rp" + total;
   }
+  //  kalo harga ada komanya
+  total = Math.round(total * 100) / 100;
+
+  document.getElementsByClassName("total-price")[0].innerText = "Rp" + total;
 }
